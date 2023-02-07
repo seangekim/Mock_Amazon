@@ -1,6 +1,6 @@
 #include <sstream>
 #include <iomanip>
-#include "product.cpp"
+#include "product.h"
 #include <iostream>
 #include <string>
 #include <set>
