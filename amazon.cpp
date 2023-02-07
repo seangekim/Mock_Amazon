@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
                 
 
                 if(ds.isUser(username)){
-                    ds.addToCart(username, search_hit_number - 1);
+                    ds.addToCart(username, search_hit_number - 1, hits);
 
                 }
                 else{
