@@ -104,16 +104,37 @@ int main(int argc, char* argv[])
             else if (cmd == "ADD"){
                 string username;
                 int search_hit_number;
+                ss >> username >> search_hit_number;
+                
+
+                if(ds.isUser(username)){
+                    ds.addToCart(username, search_hit_number - 1);
+
+                }
+                else{
+                    cout << "Invalid user" << endl;
+                }
             }
             else if (cmd == "VIEWCART"){
                 string username;
+                ss >> username;
+                if(ds.isUser(username)){
+                    ds.viewCart(username);
+                }
+                else{
+                    cout << "Invalid user" << endl;
+                }
             }
             else if (cmd == "BUYCART"){
                 string username;
+                ss >> username;
+                if(ds.isUser(username)){
+                    ds.purchaseCart(username);
+                }
+                else{
+                    cout << "Invalid user" << endl;
+                }
             }
-
-
-
             else {
                 cout << "Unknown command" << endl;
             }

@@ -137,7 +137,7 @@ void myDataStore::purchaseCart(string username){
 
 void myDataStore::addToCart(string username, int match_ind, vector<Product*> matches){
     // checks if match index and username are valid
-    if(isUser(username) == false || size_t(match_ind) > matches.size() || match_ind < 0){
+    if(isUser(username) == false || size_t(match_ind) >= matches.size() || match_ind < 0){
         cout << "Invalid request" << endl;
     }
     else{
