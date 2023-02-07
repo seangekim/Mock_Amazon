@@ -15,13 +15,11 @@ set<T> setIntersection(set<T>& s1, set<T>& s2)
 {
     set<T> interSet;   
     for(typename set<T>::iterator it = s1.begin(); it != s1.end(); ++it){
-        if(s2.find(*it)){ 
+        if(s2.find(*it) != s2.end()){ 
             interSet.insert(*it);
         }
+    }
     return interSet;
-}
-
-
 }
 template <typename T>
 set<T> setUnion(set<T>& s1, set<T>& s2)

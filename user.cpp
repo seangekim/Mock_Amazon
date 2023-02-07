@@ -16,6 +16,10 @@ User::~User()
 
 }
 
+int User:: getType() const
+{
+    return type_;
+}
 
 std::string User::getName() const
 {

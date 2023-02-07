@@ -32,16 +32,16 @@ public:
 
 	User* getUser(string username);
 
-	vector<Product*> getCart(string username);
+	void viewCart(string username);
 
-	vector<Product*> getProducts();
+    string makeUndercase(string word);
 
 
 protected:
     vector<Product*> products;
 	set<User*> users;
-	map<User*, vector<Product*>> userCart;
-	map<string, set<Product*>> keyMap;
+	map<User*, vector<Product*> > userCart;
+	map<string, set<Product*> > wordMap;
 
 
 
