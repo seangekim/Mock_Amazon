@@ -16,7 +16,7 @@ class Book : public Product{
 
         set<string> keywords() const;
 
-        bool isMatch(vector<string>& searchTerms) const;
+        // bool isMatch(vector<string>& searchTerms) const;
 
         string displayString() const;
 
