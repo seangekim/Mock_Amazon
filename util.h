@@ -4,46 +4,59 @@
 #include <string>
 #include <iostream>
 #include <set>
-
+using namespace std;
 
 /** Complete the setIntersection and setUnion functions below
  *  in this header file (since they are templates).
  *  Both functions should run in time O(n*log(n)) and not O(n^2)
  */
 template <typename T>
-std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
+set<T> setIntersection(set<T>& s1, set<T>& s2)
 {
-
-
-
+    set<T> interSet;   
+    for(typename set<T>::iterator it = s1.begin(); it != s1.end(); ++it){
+        if(s2.find(*it)){ 
+            interSet.insert(*it);
+        }
+    return interSet;
+}
 
 
 }
 template <typename T>
-std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
+set<T> setUnion(set<T>& s1, set<T>& s2)
 {
-
-
-
-
-
+    set<T> unionSet;
+    for(typename set<T>::iterator it = s1.begin(); it != s1.end(); ++it){
+        unionSet.insert(*it);
+    }
+    
+    for(typename set<T>::iterator it = s2.begin(); it != s2.end(); ++it){
+        if(s1.find(*it) != s1.end()){
+            continue;
+        }
+        else{
+            unionSet.insert(*it);
+        }
+    }
+    return unionSet;
 }
 
 /***********************************************/
 /* Prototypes of functions defined in util.cpp */
 /***********************************************/
 
-std::string convToLower(std::string src);
+string convToLower(string src);
 
-std::set<std::string> parseStringToWords(std::string line);
+set<string> parseStringToWords(string line);
 
 // Used from http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
 // Removes any leading whitespace
-std::string &ltrim(std::string &s) ;
+string &ltrim(string &s) ;
 
 // Removes any trailing whitespace
-std::string &rtrim(std::string &s) ;
+string &rtrim(string &s) ;
 
 // Removes leading and trailing whitespace
-std::string &trim(std::string &s) ;
+string &trim(string &s) ;
 #endif

@@ -5,53 +5,73 @@
 #include "util.h"
 
 using namespace std;
-std::string convToLower(std::string src)
+string convToLower(string src)
 {
-    std::transform(src.begin(), src.end(), src.begin(), ::tolower);
+    transform(src.begin(), src.end(), src.begin(), ::tolower);
     return src;
 }
 
 /** Complete the code to convert a string containing a rawWord
     to a set of words based on the criteria given in the assignment **/
-std::set<std::string> parseStringToWords(string rawWords)
+set<string> parseStringToWords(string rawWords)
 {
+    set<string> wordSet;    
+    // for loop to split by punctuation
+    int initial = 0;
+    for(size_t i=0; i<rawWords.size(); i++){
 
+        if(rawWords[i] == ',' || rawWords[i] == '.' || rawWords[i] == ';' || rawWords[i] == ':' || rawWords[i] == ' '){
+            // edge case if punctuation is at end of string
+            if(i == rawWords.size()-1){
+                break;
+            }
+            string pushed_str = rawWords.substr(initial, i-initial);
+            initial = i+1; 
 
+            // checks length of string, then pushes back 
+            if(pushed_str.size() > 1){
+                wordSet.insert(pushed_str);
 
+            }
+        }
 
-
-
-
-
-
-
+        // edge case for last substr 
+        else if(i == rawWords.size()-1){
+            string pushed_str = rawWords.substr(initial, i-initial+1);
+            // checks length of string, then pushes back 
+            if(pushed_str.size() > 1){
+                wordSet.insert(pushed_str);
+            }
+        }
+    }
+   return wordSet;
 }
 
 /**************************************************
  * COMPLETED - You may use the following functions
  **************************************************/
 
-// Used from http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
+// Used from 
 // trim from start
-std::string &ltrim(std::string &s) {
+string &ltrim(string &s) {
     s.erase(s.begin(), 
-	    std::find_if(s.begin(), 
+	    find_if(s.begin(), 
 			 s.end(), 
-			 std::not1(std::ptr_fun<int, int>(std::isspace))));
+			 not1(ptr_fun<int, int>(isspace))));
     return s;
 }
 
 // trim from end
-std::string &rtrim(std::string &s) {
+string &rtrim(string &s) {
     s.erase(
-	    std::find_if(s.rbegin(), 
+	    find_if(s.rbegin(), 
 			 s.rend(), 
-			 std::not1(std::ptr_fun<int, int>(std::isspace))).base(), 
+			 not1(ptr_fun<int, int>(isspace))).base(), 
 	    s.end());
     return s;
 }
 
 // trim from both ends
-std::string &trim(std::string &s) {
+string &trim(string &s) {
     return ltrim(rtrim(s));
 }

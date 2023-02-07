@@ -1,6 +1,8 @@
 #include <sstream>
 #include <iomanip>
 #include "product.h"
+#include "util.h"
+
 
 using namespace std;
 
@@ -15,7 +17,7 @@ Product::Product(const std::string category, const std::string name, double pric
 
 Product::~Product()
 {
-
+    
 }
 
 
