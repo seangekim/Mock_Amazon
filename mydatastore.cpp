@@ -8,8 +8,8 @@ myDataStore::~myDataStore(){
     for(size_t i=0; i<products.size(); i++){
         delete (products[i]);
     }
-    for(size_t i=0; i<users.size(); i++){
-        delete (users[i]);
+    for(set<User*>::iterator it = users.begin(); it != users.end(); ++it){
+        delete *it;
     }
 }
 
