@@ -34,9 +34,6 @@ public:
 
 	void viewCart(string username);
 
-    string makeUndercase(string word);
-
-
 protected:
     vector<Product*> products;
 	set<User*> users;

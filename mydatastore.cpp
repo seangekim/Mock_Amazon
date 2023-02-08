@@ -20,7 +20,6 @@ void myDataStore::addProduct(Product* p){
     for(set<string>::iterator it = p_keywords.begin(); it != p_keywords.end(); ++it){
         // make it undercase
         string prod_name = *it;
-        prod_name = makeUndercase(*it);
         // if current keyword is already in map
         if((p_keywords).find(*it) != p_keywords.end()){
             // add value to map
@@ -52,7 +51,7 @@ vector<Product*> myDataStore::search(vector<string>& terms, int type){
             // new set that will be pushed into outputSet
             set<Product*> termSet;
             // set temp term and make it undercase
-            string temp_term = makeUndercase(terms[i]);
+            string temp_term = (terms[i]);
             // if term is a key, push to set
             if(wordMap.find(temp_term) != wordMap.end()){
                 // new set equal to value in temp_term key
@@ -184,12 +183,3 @@ void myDataStore::viewCart(string username){
     }
 }
 
-string myDataStore::makeUndercase(string word){
-    string output = "";
-    locale loc;
-    for(size_t i=0; i<word.length(); i++){
-        char tempChar = tolower(word[i], loc);
-        word += tempChar;
-    }
-    return word;
-}
