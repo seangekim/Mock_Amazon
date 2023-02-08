@@ -14,7 +14,7 @@ using namespace std;
 class myDataStore : public DataStore{
 public:
     
-    ~myDataStore();
+    virtual ~myDataStore();
 
     void addProduct(Product* p);
 
