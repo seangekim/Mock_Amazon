@@ -6,7 +6,10 @@
 
 myDataStore::~myDataStore(){
     for(size_t i=0; i<products.size(); i++){
-        delete products[i];
+        delete (products[i]);
+    }
+    for(size_t i=0; i<users.size(); i++){
+        delete (users[i]);
     }
 }
 
