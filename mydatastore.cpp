@@ -5,10 +5,9 @@
 
 
 myDataStore::~myDataStore(){
-    products.clear();
-    users.clear();
-    userCart.clear();
-    wordMap.clear();
+    for(size_t i=0; i<products.size(); i++){
+        delete products[i];
+    }
 }
 
 void myDataStore::addProduct(Product* p){
