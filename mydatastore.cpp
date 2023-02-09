@@ -52,25 +52,32 @@ vector<Product*> myDataStore::search(vector<string>& terms, int type){
         for(size_t i=0; i<terms.size(); i++){
             // new set that will be pushed into outputSet
             set<Product*> termSet;
-            // set temp term and make it undercase
+            // set temp term
             string temp_term = (terms[i]);
+            // cout << "Looking at term: " << temp_term << endl;
             // if term is a key, push to set
+            // // debugging script
+            // for(map<string, set<Product*> >::iterator it = wordMap.begin(); it != wordMap.end(); ++it){
+            //     cout << "RAWR " << it->first << endl;
+            // }
             if(wordMap.find(temp_term) != wordMap.end()){
                 // new set equal to value in temp_term key
                 set<Product*> keySet = wordMap[temp_term];
                 // loop to iterate through set 
-                for(set<Product*>::iterator it = keySet.begin(); it != keySet.end(); ++i){
+                // cout << "Found term: " << temp_term << endl;
+                for(set<Product*>::iterator it = keySet.begin(); it != keySet.end(); ++it){
                     termSet.insert(*it);
                 }
-                // if type is 0, perform and search
-                if(type == 0){
+                // if type is 1, perform or search
+                if(type == 1){
                     // call union between termSet and outputSet
                     outputSet = setUnion(outputSet, termSet);  
                 }
+                // else, perform and search
                 else{
                     // check if outputSet is empty
                     if(outputSet.size() == 0){
-                        outputSet = termSet;
+                        outputSet = setUnion(outputSet, termSet);
                     }
                     else{
                         // call intersection between two sets
@@ -116,18 +123,23 @@ void myDataStore::purchaseCart(string username){
     vector<Product*> curr_cart = userCart[curr_user];
 
     if(isUser(username) == false){
-        cout << "Invalid user" << endl;
+        cout << "Invalid username" << endl;
     }
     else{
         for(size_t i=0; i<curr_cart.size(); i++){
             // checks if cart has item and user has enough money
-            if(curr_cart[i]->getQty() > 0 && curr_cart[i]->getPrice() > curr_user->getBalance()){
+            // cout << "Name: " << curr_cart[i]->getName() << endl;
+            // cout << "User Balance: " << curr_user->getBalance() << endl;
+            // cout << "Quantity: " << curr_cart[i]->getQty() << endl;
+            // cout << "Price: " << curr_cart[i]->getPrice() << endl;
+
+            if(curr_cart[i]->getQty() > 0 && curr_cart[i]->getPrice() < curr_user->getBalance()){
                 // charges user price of item
                 curr_user->deductAmount(curr_cart[i]->getPrice());
                 // subtracts 1 from item qty
                 curr_cart[i]->subtractQty(1);
                 // erases item from cart
-                curr_cart.erase(curr_cart.begin() + i);
+                userCart[curr_user].erase(userCart[curr_user].begin());
             }
             else{
                 continue;
@@ -145,13 +157,14 @@ void myDataStore::addToCart(string username, int match_ind, vector<Product*> mat
         User* curr_user = getUser(username);
         // push product into users cart
         userCart[curr_user].push_back(matches[match_ind]);
+        
     }
 }
 
 bool myDataStore::isUser(string username){
 
     set<User*>::iterator it;
-    for(users.begin(); it != users.end(); ++it){
+    for(it = users.begin(); it != users.end(); ++it){
         if((*it)->getName() == username){
             return true;
         }
@@ -163,25 +176,20 @@ User* myDataStore::getUser(string username){
 
     if(isUser(username)){
         set<User*>::iterator it;
-        for(users.begin(); it != users.end(); ++it){
+        for(it = users.begin(); it != users.end(); ++it){
             if((*it)->getName() == username){
                 return *it;
             }
         }
     }   
     else{
-        cout << "Invalid user" << endl;
+        cout << "Invalid username" << endl;
     }
     return NULL;
 }
 
-void myDataStore::viewCart(string username){
+vector<Product*> myDataStore::viewCart(string username){
     User* curr_user = getUser(username);
-    vector<Product*> curr_cart = userCart[curr_user];
-    for(size_t i=0; i<curr_cart.size(); i++){
-        // figure out the format for the view cart
-        cout << "Item: " << i+1 << endl; 
-        curr_cart[i]->displayString();
-    }
+    return userCart[curr_user];
 }
 

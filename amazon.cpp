@@ -3,6 +3,7 @@
 #include <set>
 #include <sstream>
 #include <vector>
+#include <queue> 
 #include <iomanip>
 #include <algorithm>
 #include "product.h"
@@ -104,35 +105,48 @@ int main(int argc, char* argv[])
             else if (cmd == "ADD"){
                 string username;
                 int search_hit_number;
-                ss >> username >> search_hit_number;
-                
-
-                if(ds.isUser(username)){
-                    ds.addToCart(username, search_hit_number - 1, hits);
-
-                }
-                else{
-                    cout << "Invalid user" << endl;
+                if(ss >> username){
+                    if(ss >> search_hit_number){
+                        if(ds.isUser(username)){
+                            ds.addToCart(username, search_hit_number - 1, hits);
+                        }
+                        else{
+                            cout << "Invalid request" << endl;
+                        }
+                    }
+                    else{
+                        cout << "Invalid request" << endl;
+                    }
                 }
             }
             else if (cmd == "VIEWCART"){
                 string username;
-                ss >> username;
-                if(ds.isUser(username)){
-                    ds.viewCart(username);
+                if(ss >> username){
+                    if(ds.isUser(username)){
+                        vector<Product*> curr_cart = ds.viewCart(username);
+                        displayProducts(curr_cart);
+        
+                    }
+                    else{
+                        cout << "Invalid username" << endl;
+                    }
                 }
                 else{
-                    cout << "Invalid user" << endl;
+                    cout <<"Invalid request" << endl;
                 }
             }
             else if (cmd == "BUYCART"){
                 string username;
-                ss >> username;
-                if(ds.isUser(username)){
-                    ds.purchaseCart(username);
+                if(ss >> username){
+                    if(ds.isUser(username)){
+                        ds.purchaseCart(username);
+                    }
+                    else{
+                        cout << "Invalid username" << endl;
+                    }
                 }
                 else{
-                    cout << "Invalid user" << endl;
+                    cout << "Invalid username" << endl;
                 }
             }
             else {
@@ -151,7 +165,7 @@ void displayProducts(vector<Product*>& hits)
     	cout << "No results found!" << endl;
     	return;
     }
-    std::sort(hits.begin(), hits.end(), ProdNameSorter());
+    // std::sort(hits.begin(), hits.end(), ProdNameSorter());
     for(vector<Product*>::iterator it = hits.begin(); it != hits.end(); ++it) {
         cout << "Hit " << setw(3) << resultNo << endl;
         cout << (*it)->displayString() << endl;

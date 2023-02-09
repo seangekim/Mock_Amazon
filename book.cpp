@@ -29,9 +29,9 @@ string Book::getIsbn() const{
 
 set<string> Book::keywords() const{
 
-    set<string> set_author = parseStringToWords(getAuthor());
+    set<string> set_author = parseStringToWords(getIsbn());
     set<string> set_name = parseStringToWords(getName());
-    set_name.insert(getIsbn());
+    set_name.insert(getAuthor());
     set<string> all = setUnion<string>(set_author, set_name);
 
     return all;
@@ -41,9 +41,9 @@ string Book::displayString() const{
     string str = "";
     str.append(getName());
     str += "\nAuthor: ";
-    str.append(getAuthor());
-    str += " ISBN: ";
     str.append(getIsbn());
+    str += " ISBN: ";
+    str.append(getAuthor());
     str += "\n";
     str.append(to_string(getPrice()));
     str += " ";

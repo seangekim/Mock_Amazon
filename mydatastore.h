@@ -14,7 +14,7 @@ using namespace std;
 class myDataStore : public DataStore{
 public:
     
-    virtual ~myDataStore();
+     ~myDataStore();
 
     void addProduct(Product* p);
 
@@ -32,7 +32,7 @@ public:
 
 	User* getUser(string username);
 
-	void viewCart(string username);
+	vector<Product*> viewCart(string username);
 
 protected:
     vector<Product*> products;
